@@ -4,10 +4,14 @@ export interface Analyzer {
   run(matches: MatchData[]): string;
 }
 
-export interface OutputTarget {
+export interface OutPutTarget {
   print(report: string): void;
 }
 
 export class Summary {
-  constructor(public analyzer: Analyzer, public outputTarget: OutputTarget) {}
+  constructor(public analyzer: Analyzer, public outPutTarget: OutPutTarget) {}
+  buildAndPrintReport(matches: MatchData[]): void {
+    const output = this.analyzer.run(matches);
+    this.outPutTarget.print(output);
+  }
 }
